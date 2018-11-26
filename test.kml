@@ -5,10 +5,10 @@
     <description>Examples of ground overlays</description>
     <GroundOverlay>
       <name>Large-scale overlay on terrain</name>
-      <description>Overlay shows Mount Etna erupting 
+      <description>Overlay shows Mount Etna erupting
           on July 13th, 2001.</description>
       <Icon>
-        <href>temperature.png</href>
+        <href>visu.png</href>
       </Icon>
       <LatLonBox>
         <north>55.4</north>
