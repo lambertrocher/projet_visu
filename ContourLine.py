@@ -17,20 +17,21 @@ def main():
     """
     main
     """
-    if len(sys.argv) != 3 or sys.argv[0] == "-h" or sys.argv[0] == "--help":
-        print("utilisation: pvpython "+sys.argv[0]+" nc_file temperature")
+
+    if len(sys.argv) != 4 or sys.argv[0] == "-h" or sys.argv[0] == "--help":
+        print("utilisation: pvpython "+sys.argv[0]+" nc_file temperature image_name")
         sys.exit(1)
 
     # Create a new 'Render View'
     renderView1 = CreateView('RenderView')
-    renderView1.ViewSize = [1181, 758]
+    renderView1.ViewSize = [1187, 758]
     renderView1.InteractionMode = '2D'
     renderView1.AxesGrid = 'GridAxes3DActor'
-    renderView1.CenterOfRotation = [1.999999999987267, 46.45, 0.0]
+    renderView1.CenterOfRotation = [1.99999999998727, 46.45, 0.0]
     renderView1.StereoType = 0
-    renderView1.CameraPosition = [1.9823518066045052, 46.45217026390131, 10000.0]
-    renderView1.CameraFocalPoint = [1.9823518066045052, 46.45217026390131, 0.0]
-    renderView1.CameraParallelScale = 8.993971239837444
+    renderView1.CameraPosition = [1.98235180660451, 46.4521702639013, 10000.0]
+    renderView1.CameraFocalPoint = [1.98235180660451, 46.4521702639013, 0.0]
+    renderView1.CameraParallelScale = 8.99397123983744
     renderView1.Background = [0.32, 0.34, 0.43]
 
     # ----------------------------------------------------------------
@@ -38,7 +39,7 @@ def main():
     # ----------------------------------------------------------------
 
     # create a new 'NetCDF Reader'
-    previsionPour = NetCDFReader(FileName=[sys.argv[1]])
+    previsionPour = NetCDFReader(FileName=sys.argv[1])
     previsionPour.Dimensions = '(latitude, longitude)'
     previsionPour.SphericalCoordinates = 0
     previsionPour.ReplaceFillValueWithNan = 1
@@ -63,12 +64,12 @@ def main():
     # get color transfer function/color map for 'TMP2maboveground'
     tMP2mabovegroundLUT = GetColorTransferFunction('TMP2maboveground')
     tMP2mabovegroundLUT.EnableOpacityMapping = 1
-    tMP2mabovegroundLUT.RGBPoints = [255.67230224609375, 0.231373, 0.298039, 0.752941, 277.32952880859375, 0.865003, 0.865003, 0.865003, 298.98675537109375, 0.705882, 0.0156863, 0.14902]
+    tMP2mabovegroundLUT.RGBPoints = [255.672302246094, 0.231373, 0.298039, 0.752941, 280.3642883300781, 0.8627450980392157, 0.8666666666666667, 0.8666666666666667, 298.986755371094, 0.705882, 0.0156863, 0.14902]
     tMP2mabovegroundLUT.ScalarRangeInitialized = 1.0
 
     # get opacity transfer function/opacity map for 'TMP2maboveground'
     tMP2mabovegroundPWF = GetOpacityTransferFunction('TMP2maboveground')
-    tMP2mabovegroundPWF.Points = [255.67230224609375, 0.0, 0.5, 0.0, 298.98675537109375, 1.0, 0.5, 0.0]
+    tMP2mabovegroundPWF.Points = [255.672302246094, 0.0, 0.5, 0.0, 258.98297119140625, 0.9276315569877625, 0.5, 0.0, 298.986755371094, 1.0, 0.5, 0.0]
     tMP2mabovegroundPWF.ScalarRangeInitialized = 1
 
     # ----------------------------------------------------------------
@@ -81,21 +82,10 @@ def main():
     previsionPourDisplay.Representation = 'Slice'
     previsionPourDisplay.ColorArrayName = ['POINTS', 'TMP_2maboveground']
     previsionPourDisplay.LookupTable = tMP2mabovegroundLUT
-    previsionPourDisplay.ScalarOpacityUnitDistance = 0.1941905735298652
+    previsionPourDisplay.ScalarOpacityUnitDistance = 0.194190573529865
 
     # show color legend
     previsionPourDisplay.SetScalarBarVisibility(renderView1, True)
-
-    # show data from extractSubset1
-    extractSubset1Display = Show(extractSubset1, renderView1)
-    # trace defaults for the display properties.
-    extractSubset1Display.Representation = 'Slice'
-    extractSubset1Display.ColorArrayName = ['POINTS', 'TMP_2maboveground']
-    extractSubset1Display.LookupTable = tMP2mabovegroundLUT
-    extractSubset1Display.ScalarOpacityUnitDistance = 0.9013527976890835
-
-    # show color legend
-    extractSubset1Display.SetScalarBarVisibility(renderView1, True)
 
     # show data from contour1
     contour1Display = Show(contour1, renderView1)
@@ -106,14 +96,14 @@ def main():
 
     # get color legend/bar for tMP2mabovegroundLUT in view renderView1
     tMP2mabovegroundLUTColorBar = GetScalarBar(tMP2mabovegroundLUT, renderView1)
-    tMP2mabovegroundLUTColorBar.Position = [0.554830508474576, 0.025099075297225895]
-    tMP2mabovegroundLUTColorBar.Position2 = [0.4299999999999997, 0.1199999999999997]
+    tMP2mabovegroundLUTColorBar.Position = [0.554830508474576, 0.0250990752972259]
+    tMP2mabovegroundLUTColorBar.Position2 = [0.43, 0.12]
     tMP2mabovegroundLUTColorBar.Orientation = 'Horizontal'
     tMP2mabovegroundLUTColorBar.Title = 'TMP_2maboveground'
     tMP2mabovegroundLUTColorBar.ComponentTitle = ''
 
-    WriteImage("visu.png")
+    WriteImage(sys.argv[3])
 
-    print("visualization image generated")
+    print(sys.argv[3]+" generated")
 
 main()
