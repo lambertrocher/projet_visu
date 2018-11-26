@@ -8,14 +8,14 @@
       <description>Overlay shows Mount Etna erupting 
           on July 13th, 2001.</description>
       <Icon>
-        <href>https://developers.google.com/kml/documentation/images/etna.jpg</href>
+        <href>temperature.png</href>
       </Icon>
       <LatLonBox>
-        <north>37.91904192681665</north>
-        <south>37.46543388598137</south>
-        <east>15.35832653742206</east>
-        <west>14.60128369746704</west>
-        <rotation>-0.1556640799496235</rotation>
+        <north>55.4</north>
+        <south>37.5</south>
+        <east>16.0</east>
+        <west>-12.0</west>
+        <rotation>0.0</rotation>
       </LatLonBox>
     </GroundOverlay>
   </Folder>
